@@ -62,7 +62,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_complex_precedence(self) -> None:
         result = self.calculator.evaluate("3 + 4 * 2 ** 2 - (1 + 3)")
-        self.assertEqual(result, 14)
+        self.assertEqual(result, 15)
 
     def test_empty_expression(self) -> None:
         result = self.calculator.evaluate("")
@@ -78,7 +78,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_not_enough_operands(self) -> None:
         with self.assertRaises(ValueError):
-            self.calculator.evaluate("+ 3")
+            self.calculator.evaluate("3 +")
 
     def test_division_by_zero(self) -> None:
         with self.assertRaises(ZeroDivisionError):
