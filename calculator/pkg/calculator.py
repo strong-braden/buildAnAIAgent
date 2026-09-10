@@ -8,11 +8,11 @@ class Calculator:
         # Binary operators: operator -> (precedence, associativity)
         # Higher number = higher precedence
         self.binary_ops: dict[str, tuple[int, str]] = {
-            '+': (1, 'left'),
-            '-': (1, 'left'),
-            '*': (2, 'left'),
-            '/': (2, 'left'),
-            '%': (2, 'left'),
+            '+': (2, 'left'),
+            '-': (2, 'left'),
+            '*': (3, 'left'),
+            '/': (3, 'left'),
+            '%': (3, 'left'),
             '**': (3, 'right'),  # Exponentiation
         }
         # Unary operators: operator -> function
@@ -111,17 +111,6 @@ class Calculator:
             b = values.pop()
             a = values.pop()
             values.append(self._apply_binary_op(op, a, b))
-        # if op in self.unary_ops: # Old dead code
-        #     if len(values) < 1:
-        #         raise ValueError(f"Not enough operands for unary operator {op}")
-        #     a = values.pop()
-        #     values.append(self.unary_ops[op](a))
-        # else:
-        #     if len(values) < 2:
-        #         raise ValueError(f"Not enough operands for operator {op}")
-        #     b = values.pop()
-        #     a = values.pop()
-        #     values.append(self._apply_binary_op(op, a, b))
 
     def _should_pop(self, top_op: str, current_op: str) -> bool:
         """Determine if top_op should be popped before pushing current_op."""
@@ -143,7 +132,6 @@ class Calculator:
         for token in tokens:
             # Determine if token is a unary operator (only when expecting operand)
             if token in self.unary_ops and expect_operand:
-                #ops.append(token) #version no longer works
                 ops.append("u" + token)  # e.g. "u-" for unary minus
                 # expect_operand stays True
             elif token in self.binary_ops:
